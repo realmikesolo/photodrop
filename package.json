@@ -7,7 +7,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "mocha 'test/**/*.test.ts'",
-    "migration:cli": "typeorm-ts-node-commonjs -d ./src/typeorm.config.ts",
+    "migration:cli": "typeorm-ts-node-commonjs -d ./src/db/typeorm.config.ts",
     "migration:generate": "npm run migration:cli migration:generate",
     "migration:run": "npm run migration:cli migration:run",
     "migration:revert": "npm run migration:cli migration:revert",
@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "@fastify/type-provider-typebox": "^2.4.0",
+    "@hibanka/pg-utils": "^1.0.0",
     "@sinclair/typebox": "^0.25.21",
     "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",

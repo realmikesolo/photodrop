@@ -1,6 +1,6 @@
 import { resolve } from 'node:path';
 import { DataSource } from 'typeorm';
-import { Env } from './env';
+import { Env } from '../shared/env';
 
 export let db: DataSource;
 
@@ -13,7 +13,7 @@ export async function connectDB(): Promise<void> {
     password: Env.DB_PASSWORD,
     database: Env.DB_NAME,
     logging: true,
-    entities: [resolve(__dirname, '**/*.entity.{ts,js}')],
+    entities: [resolve(__dirname, '../app/**/*.entity.{ts,js}')],
     migrations: [resolve(__dirname, 'migrations/*.{ts,js}')],
     migrationsRun: true,
   });

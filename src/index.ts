@@ -1,6 +1,6 @@
 import 'dotenv/config';
-import { connectDB } from './db';
-import { Env } from './env';
+import { connectDB } from './db/db';
+import { Env } from './shared/env';
 import { startServer } from './server';
 
 (async () => {

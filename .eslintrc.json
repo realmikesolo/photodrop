@@ -3,7 +3,7 @@
   "overrides": [
     {
       "files": [
-        "src/migrations/*.ts"
+        "src/db/migrations/*.ts"
       ],
       "rules": {
         "@typescript-eslint/explicit-member-accessibility": "off"

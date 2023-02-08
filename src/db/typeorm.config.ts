@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { resolve } from 'node:path';
 import { DataSource } from 'typeorm';
-import { Env } from './env';
+import { Env } from '../shared/env';
 
 export default new DataSource({
   type: 'postgres',
@@ -10,7 +10,7 @@ export default new DataSource({
   username: Env.DB_USERNAME,
   password: Env.DB_PASSWORD,
   database: Env.DB_NAME,
-  entities: [resolve(__dirname, '**/*.entity.{ts,js}')],
+  entities: [resolve(__dirname, '../app/**/*.entity.{ts,js}')],
   migrations: [resolve(__dirname, 'migrations/*.{ts,js}')],
   migrationsRun: true,
 });
