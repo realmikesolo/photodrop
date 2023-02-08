@@ -1,5 +1,6 @@
 import { Static, Type } from '@sinclair/typebox';
 import { FastifyInstance } from 'fastify';
+import { responseSchema } from '../../http/response';
 import { PhotographerService } from './photographer.service';
 
 const photographerService = new PhotographerService();
@@ -38,14 +39,18 @@ export async function photographerRouter(fastify: FastifyInstance): Promise<void
 export const PhotographerRegisterSchema = {
   body: UserSchema,
   response: {
-    201: Type.Object({ message: Type.String() }),
+    200: responseSchema({
+      id: Type.Optional(Type.Number()),
+    }),
   },
 };
 
 export const PhotographerLoginSchema = {
   body: Type.Pick(UserSchema, ['login', 'password']),
   response: {
-    200: Type.Object({ accessToken: Type.String() }),
+    200: responseSchema({
+      token: Type.Optional(Type.String()),
+    }),
   },
 };
 

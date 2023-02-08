@@ -43,6 +43,7 @@ export class PhotographerService {
     const { login, password } = ctx;
 
     const photographer = await Photographer.findOne({ where: { login } });
+
     if (!photographer) {
       throw new UserNotFound();
     }
@@ -51,12 +52,12 @@ export class PhotographerService {
       throw new IncorrectPassword();
     }
 
-    const accessToken = this.createToken(photographer.id);
+    const token = this.createToken(photographer.id);
 
     return {
       status: HttpStatus.OK,
       body: {
-        token: accessToken,
+        token,
         success: true,
       },
     };
