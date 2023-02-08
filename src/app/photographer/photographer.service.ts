@@ -34,8 +34,8 @@ export class PhotographerService {
     }
 
     return {
-      status: HttpStatus.CREATED,
-      body: { id: photographer.id },
+      status: HttpStatus.OK,
+      body: { id: photographer.id, success: true },
     };
   }
 
@@ -56,14 +56,13 @@ export class PhotographerService {
     return {
       status: HttpStatus.OK,
       body: {
-        accessToken,
+        token: accessToken,
+        success: true,
       },
     };
   }
 
   private createToken(photographerId: number): string {
-    const accessToken = jwt.sign({ photographerId }, Env.ACCESS_TOKEN_KEY, { expiresIn: '1d' });
-
-    return accessToken;
+    return jwt.sign({ photographerId }, Env.ACCESS_TOKEN_KEY, { expiresIn: '1d' });
   }
 }

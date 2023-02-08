@@ -14,12 +14,12 @@ export class HttpException extends Error {
 
 export class BadRequestException extends HttpException {
   constructor() {
-    super(HttpStatus.BAD_REQUEST, { code: 'BAD_REQUEST' });
+    super(HttpStatus.OK, { message: 'BAD_REQUEST', success: false });
   }
 }
 
 export class InternalServerErrorException extends HttpException {
   constructor() {
-    super(HttpStatus.INTERNAL_SERVER_ERROR, { code: 'INTERNAL_SERVER_ERROR' });
+    super(HttpStatus.OK, { message: 'INTERNAL_SERVER_ERROR', success: false });
   }
 }
