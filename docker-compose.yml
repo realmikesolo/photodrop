@@ -39,13 +39,23 @@ services:
       postgresql:
         condition: service_healthy
     networks:
+      - 'infrastructure-traefik'
       - 'photodrop'
-    ports:
-      - '${SERVER_PORT}:${SERVER_PORT}'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.photodrop.rule=Host(178.18.254.186)'
+      - 'traefik.http.routers.photodrop.entrypoints=websecure'
+      - 'traefik.http.routers.photodrop.tls=true'
+      - 'traefik.http.routers.photodrop.tls.certresolver=le'
+      - 'traefik.docker.network=infrastructure-traefik'
+    expose:
+      - '${SERVER_PORT}'
     restart: 'unless-stopped'
 
 networks:
   photodrop:
+  infrastructure-traefik:
+    external: true
 
 volumes:
   pgdata:
