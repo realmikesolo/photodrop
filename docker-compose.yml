@@ -43,7 +43,7 @@ services:
       - 'photodrop'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.routers.photodrop.rule=Host(178.18.254.186)'
+      - 'traefik.http.routers.photodrop.rule=Host(`178.18.254.186`)'
       - 'traefik.http.routers.photodrop.entrypoints=websecure'
       - 'traefik.http.routers.photodrop.tls=true'
       - 'traefik.http.routers.photodrop.tls.certresolver=le'
