@@ -40,12 +40,12 @@ services:
         condition: service_healthy
     networks:
       - 'photodrop'
-    expose:
-      - '${SERVER_PORT}'
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
     restart: 'unless-stopped'
 
 networks:
   photodrop:
-    
+
 volumes:
   pgdata:

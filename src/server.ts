@@ -10,7 +10,7 @@ export async function startServer(port: number): Promise<void> {
   fastify.setErrorHandler(httpErrorHandler).setNotFoundHandler(httpNotFoundHandler);
   fastify.register(photographerRouter);
 
-  await fastify.listen({ port });
+  await fastify.listen({ port, host: '0.0.0.0' });
 
   console.log(`Server has started on ${port} port`);
 }
