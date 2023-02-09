@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  postgresql:
+    hostname: 'photodrop-postgresql'
+    image: 'postgres:14.6-alpine'
+    environment:
+      POSTGRES_DB: '${DB_NAME}'
+      POSTGRES_USER: '${DB_USERNAME}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD}'
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -d ${DB_NAME} -U ${DB_USERNAME}"
+        ]
+      interval: 1s
+      timeout: 3s
+      retries: 10
+    expose:
+      - '${DB_PORT}'
+    networks:
+      - 'photodrop'
+    volumes:
+      - 'pgdata:/var/lib/postgresql/data'
+    restart: 'always'
+  app:
+    hostname: 'photodrop'
+    build: '.'
+    environment:
+      SERVER_PORT: '${SERVER_PORT}'
+      DB_HOST: '${DB_HOST}'
+      DB_PORT: '${DB_PORT}'
+      DB_USERNAME: '${DB_USERNAME}'
+      DB_PASSWORD: '${DB_PASSWORD}'
+      DB_NAME: '${DB_NAME}'
+      ACCESS_TOKEN_KEY: '${ACCESS_TOKEN_KEY}'
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    networks:
+      - 'photodrop'
+    expose:
+      - '${SERVER_PORT}'
+    restart: 'unless-stopped'
+
+networks:
+  photodrop:
+    
+volumes:
+  pgdata:
