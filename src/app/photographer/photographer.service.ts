@@ -1,6 +1,6 @@
 import { PgErrors } from '@hibanka/pg-utils';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import { sign } from 'jsonwebtoken';
 import { HttpStatus } from '../../http/status';
 import { HttpResponse } from '../../http/type';
 import { Env } from '../../shared/env';
@@ -64,6 +64,6 @@ export class PhotographerService {
   }
 
   private createToken(photographerId: number): string {
-    return jwt.sign({ photographerId }, Env.ACCESS_TOKEN_KEY, { expiresIn: '1d' });
+    return sign({ photographerId }, Env.JWT_SECRET_KEY, { expiresIn: '1d' });
   }
 }

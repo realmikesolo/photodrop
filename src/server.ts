@@ -1,5 +1,6 @@
 import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox';
 import Fastify, { FastifyReply, FastifyRequest } from 'fastify';
+import { albumRouter } from './app/album/album.router';
 import { photographerRouter } from './app/photographer/photographer.router';
 import { BadRequestException, HttpException, InternalServerErrorException } from './http/exception';
 import { HttpStatus } from './http/status';
@@ -8,7 +9,7 @@ export async function startServer(port: number): Promise<void> {
   const fastify = Fastify({ logger: true }).withTypeProvider<TypeBoxTypeProvider>();
 
   fastify.setErrorHandler(httpErrorHandler).setNotFoundHandler(httpNotFoundHandler);
-  fastify.register(photographerRouter);
+  fastify.register(photographerRouter).register(albumRouter);
 
   await fastify.listen({ port, host: '0.0.0.0' });
   console.log(`Server has started on ${port} port`);

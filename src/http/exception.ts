@@ -23,3 +23,9 @@ export class InternalServerErrorException extends HttpException {
     super(HttpStatus.OK, { message: 'INTERNAL_SERVER_ERROR', success: false });
   }
 }
+
+export class UnauthorizedException extends HttpException {
+  constructor() {
+    super(HttpStatus.OK, { message: 'UNAUTHORIZED', success: false });
+  }
+}

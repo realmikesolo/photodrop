@@ -1,19 +1,23 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Album } from '../album/album.entity';
 
 @Entity({ name: 'photographers' })
 export class Photographer extends BaseEntity {
   @PrimaryGeneratedColumn('increment')
   public id: number;
 
-  @Column({ type: 'varchar', length: 255, unique: true })
+  @Column({ unique: true })
   public login: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column()
   public password: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'text', nullable: true })
   public fullname: string | null;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'text', nullable: true })
   public email: string | null;
+
+  @OneToMany(() => Album, (album) => album.photographer)
+  public albums: Album[];
 }
