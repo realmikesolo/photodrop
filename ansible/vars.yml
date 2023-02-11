@@ -11,4 +11,4 @@ app_environment:
   DB_USERNAME: "postgres"
   DB_PASSWORD: "{{ DB_PASSWORD }}"
   DB_NAME: "postgres"
-  ACCESS_TOKEN_KEY: "{{ ACCESS_TOKEN_KEY }}"
+  JWT_SECRET_KEY: "{{ JWT_SECRET_KEY }}"
