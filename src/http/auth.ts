@@ -1,9 +1,9 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyRequest } from 'fastify';
 import { JwtPayload, verify } from 'jsonwebtoken';
 import { Env } from '../shared/env';
 import { UnauthorizedException } from './exception';
 
-export async function verifyJWT(req: FastifyRequest, res: FastifyReply, done): Promise<void> {
+export async function verifyJWT(req: FastifyRequest): Promise<void> {
   try {
     const [type, token] = (req.headers.authorization ?? '').split(' ');
 
@@ -13,8 +13,6 @@ export async function verifyJWT(req: FastifyRequest, res: FastifyReply, done): P
 
     const { photographerId } = verify(token, Env.JWT_SECRET_KEY) as JwtPayload;
     req['photographerId'] = photographerId;
-
-    done();
   } catch (e) {
     console.error(e);
 

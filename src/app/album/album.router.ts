@@ -17,7 +17,8 @@ export async function albumRouter(fastify: FastifyInstance): Promise<void> {
     '/album/upload',
     {
       schema: AlbumCreateAlbumSchema,
-      preHandler: [verifyJWT],    },
+      preHandler: [verifyJWT],
+    },
     async (req, res) => {
       const { status, body } = await albumService.createAlbum({
         ...req.body,
@@ -28,13 +29,28 @@ export async function albumRouter(fastify: FastifyInstance): Promise<void> {
   );
 
   fastify.get(
-    '/album/allByUser',
+    '/album',
     {
-      schema: AlbumGetAlbumsSchema,
+      schema: AlbumGetAlbumsByUserSchema,
       preHandler: [verifyJWT],
     },
     async (req, res) => {
       const { status, body } = await albumService.getAlbums({
+        photographerId: (req as AuthRequest).photographerId,
+      });
+      return res.status(status).send(body);
+    },
+  );
+
+  fastify.get<{ Params: { id: number } }>(
+    '/album/:id',
+    {
+      schema: AlbumGetAlbumSchema,
+      preHandler: [verifyJWT],
+    },
+    async (req, res) => {
+      const { status, body } = await albumService.getAlbum({
+        id: req.params.id,
         photographerId: (req as AuthRequest).photographerId,
       });
       return res.status(status).send(body);
@@ -51,7 +67,7 @@ export const AlbumCreateAlbumSchema = {
   },
 };
 
-export const AlbumGetAlbumsSchema = {
+export const AlbumGetAlbumsByUserSchema = {
   response: {
     200: responseSchema({
       albums: Type.Optional(
@@ -68,10 +84,31 @@ export const AlbumGetAlbumsSchema = {
   },
 };
 
+export const AlbumGetAlbumSchema = {
+  params: { id: Type.Number() },
+  response: {
+    200: responseSchema({
+      album: Type.Optional(
+        Type.Object({
+          id: Type.Number(),
+          name: Type.String(),
+          location: Type.String(),
+          date: Type.String(),
+        }),
+      ),
+    }),
+  },
+};
+
 export type AlbumCreateAlbumContext = Static<typeof AlbumCreateAlbumSchema['body']> & {
   photographerId: number;
 };
 
 export type AlbumGetAlbumsContext = {
+  photographerId: number;
+};
+
+export type AlbumGetAlbumContext = {
+  id: number;
   photographerId: number;
 };
