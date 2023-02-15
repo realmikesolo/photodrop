@@ -14,18 +14,18 @@ export class HttpException extends Error {
 
 export class BadRequestException extends HttpException {
   constructor() {
-    super(HttpStatus.OK, { message: 'BAD_REQUEST', success: false });
+    super(HttpStatus.BAD_REQUEST, { message: 'BAD_REQUEST', success: false });
   }
 }
 
 export class InternalServerErrorException extends HttpException {
   constructor() {
-    super(HttpStatus.OK, { message: 'INTERNAL_SERVER_ERROR', success: false });
+    super(HttpStatus.INTERNAL_SERVER_ERROR, { message: 'INTERNAL_SERVER_ERROR', success: false });
   }
 }
 
 export class UnauthorizedException extends HttpException {
   constructor() {
-    super(HttpStatus.OK, { message: 'UNAUTHORIZED', success: false });
+    super(HttpStatus.UNAUTHORIZED, { message: 'UNAUTHORIZED', success: false });
   }
 }

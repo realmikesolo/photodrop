@@ -3,6 +3,6 @@ import { HttpStatus } from '../../http/status';
 
 export class AlbumNotFound extends HttpException {
   constructor() {
-    super(HttpStatus.OK, { message: 'ALBUM_NOT_FOUND', success: false });
+    super(HttpStatus.NOT_FOUND, { message: 'ALBUM_NOT_FOUND', success: false });
   }
 }
