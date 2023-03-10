@@ -54,6 +54,6 @@ export const PhotographerLoginSchema = {
   },
 };
 
-export type PhotographerRegisterContext = Static<typeof PhotographerRegisterSchema['body']>;
+export type PhotographerRegisterContext = Static<(typeof PhotographerRegisterSchema)['body']>;
 
-export type PhotographerLoginContext = Static<typeof PhotographerLoginSchema['body']>;
+export type PhotographerLoginContext = Static<(typeof PhotographerLoginSchema)['body']>;

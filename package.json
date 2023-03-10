@@ -31,10 +31,12 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "@fastify/multipart": "^7.4.2",
     "@fastify/type-provider-typebox": "^2.4.0",
     "@hibanka/pg-utils": "^1.0.0",
     "@sinclair/typebox": "^0.25.21",
     "bcrypt": "^5.1.0",
+    "canvas": "^2.11.0",
     "dotenv": "^16.0.3",
     "fastify": "^4.12.0",
     "jsonwebtoken": "^9.0.0",

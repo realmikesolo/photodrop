@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Photo } from '../photo/photo.entity';
 import { Photographer } from '../photographer/photographer.entity';
 
 @Entity({ name: 'albums' })
@@ -17,4 +18,7 @@ export class Album extends BaseEntity {
 
   @ManyToOne(() => Photographer, (photographer) => photographer.albums)
   public photographer: Photographer;
+
+  @OneToMany(() => Photo, (photo) => photo.album)
+  public photos: Photo[];
 }
